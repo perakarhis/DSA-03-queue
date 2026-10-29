@@ -1,0 +1,40 @@
+@startuml
+package oy.tol.tra {
+
+  interface QueueInterface<E> {
+    +int capacity()
+    +void enqueue(E element)
+    +E dequeue()
+    +E element()
+    +int size()
+    +boolean isEmpty()
+    +void clear()
+    +String toString()
+  }
+
+  class QueueFactory {
+    +<color:Red>{static}QueueInterface<Integer> createIntegerQueue(int capacity)</color>
+  }
+
+  class QueueImplementation implements QueueInterface
+
+  class QueueImplementation #pink;line:red
+
+  note left of QueueImplementation 
+    You must implement things colored in pink.
+  end note 
+
+  QueueFactory ..> QueueImplementation : instantiates
+  QueueImplementation ..> QueueIsEmptyException : throws
+  QueueImplementation ..> QueueAllocationException : throws
+  QueueTests ..> QueueImplementation : tests
+}
+
+package java.lang {
+  class Exception 
+}
+
+QueueIsEmptyException --|> java.lang.Exception
+QueueAllocationException --|> java.lang.Exception
+
+@enduml
